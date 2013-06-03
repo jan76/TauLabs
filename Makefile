@@ -246,8 +246,11 @@ $(BUILD_DIR):
 #
 ##############################
 
+$(info $(QT_LIB_QMAKE_PATH))
 ifeq ($(shell [ -d "$(QT_SDK_DIR)" ] && echo "exists"), exists)
   QMAKE = $(QT_SDK_QMAKE_PATH)
+else ifeq ($(shell [ -d "$(QT_LIB_DEFAULT_DIR)" ] && echo "exists"), exists)
+  QMAKE = $(QT_LIB_QMAKE_PATH)
 else
   # not installed, hope it's in the path...
   QMAKE = qmake

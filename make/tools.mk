@@ -24,6 +24,8 @@ endif
 # Set up QT toolchain
 QT_SDK_DIR := $(TOOLS_DIR)/qtsdk-v1.2.1
 QT_SDK_QMAKE_PATH := $(QT_SDK_DIR)/Desktop/Qt/4.8.1/gcc/bin/qmake
+QT_LIB_DEFAULT_DIR := C:/Qt/4.8.4
+QT_LIB_QMAKE_PATH := $(QT_LIB_DEFAULT_DIR)/bin/qmake
 
 # Build openocd without FTDI (yes | no)
 OPENOCD_FTDI ?= yes
