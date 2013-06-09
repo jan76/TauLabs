@@ -98,7 +98,7 @@ macx {
     GCS_DATA_PATH    = $$GCS_BUILD_TREE/share/taulabs
     GCS_DATA_BASENAME = share/taulabs
     GCS_DOC_PATH     = $$GCS_BUILD_TREE/share/doc
-    !isEqual(GCS_SOURCE_TREE, $$GCS_BUILD_TREE):copydata = 1
+    copydata = 1
 }
 
 
