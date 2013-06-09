@@ -2,6 +2,8 @@ include(gcs.pri)
 
 TEMPLATE = subdirs
 
+message($$CONFIG)
+
 # Copy Qt runtime libraries into the build directory (to run or package)
 equals(copydata, 1) {
 
@@ -79,6 +81,43 @@ equals(copydata, 1) {
             #   xcopy /s /e <SDL>\lib\*         C:\QtSDK\Desktop\Qt\4.7.3\mingw\lib
             SDL_DLL = SDL.dll
             data_copy.commands += $(COPY_FILE) $$targetPath(\"$$(QTMINGW)$$SDL_DLL\") $$targetPath(\"$$GCS_APP_PATH/$$SDL_DLL\") $$addNewline()
+        }
+
+        data_copy.target = FORCE
+        QMAKE_EXTRA_TARGETS += data_copy
+
+    }
+
+    win32:CONFIG(debug, release|debug) {
+
+        # copy Qt DLLs and phonon4
+        QT_DLLS = phonond4.dll \
+                  QtCored4.dll \
+                  QtGuid4.dll \
+                  QtNetworkd4.dll \
+                  QtOpenGLd4.dll \
+                  QtSqld4.dll \
+                  QtSvgd4.dll \
+                  QtTestd4.dll \
+                  QtXmld4.dll \
+                  QtDeclaratived4.dll \
+                  QtXmlPatternsd4.dll \
+                  QtScriptd4.dll
+
+        for(dll, QT_DLLS) {
+            data_copy.commands += $(COPY_FILE) $$targetPath(\"$$[QT_INSTALL_BINS]/$$dll\") $$targetPath(\"$$GCS_APP_PATH/$$dll\") $$addNewline()
+        }
+
+        message("qtming")
+        message($$(QTMINGW))
+        message($$targetPath(\"$$(QTMINGW)/$$dll\"))
+
+        # copy MinGW DLLs
+        MINGW_DLLS = libgcc_s_dw2-1.dll \
+                     mingwm10.dll \
+                     libstdc++-6.dll
+        for(dll, MINGW_DLLS) {
+            data_copy.commands += $(COPY_FILE) $$targetPath(\"$$(QTMINGW)/$$dll\") $$targetPath(\"$$GCS_APP_PATH/$$dll\") $$addNewline()
         }
 
         data_copy.target = FORCE
